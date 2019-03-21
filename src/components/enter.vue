@@ -45,7 +45,7 @@
         }
         // localhost:8081/login.do
         // result code =0
-        this.$router.push({path:'home'})
+        this.$router.push({path:'homes'})
 
         //code !=0
       }
