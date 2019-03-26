@@ -5,9 +5,10 @@ import Antd from 'ant-design-vue'
 import App from './App'
 import router from './router'
 import 'ant-design-vue/dist/antd.css'
+import axios from 'axios'
 
 Vue.config.productionTip = false
-
+Vue.prototype.$set(axios,axios)
 Vue.use(Antd)
 
 /* eslint-disable no-new */

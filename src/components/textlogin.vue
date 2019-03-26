@@ -76,7 +76,13 @@ export default {
         return
       }
       // 调用后台接口
-      this.axios.get('/api/user/list', this.phone_number)
+      // 调用后台接口
+      console.log(this.$refs.phone.value)
+      this.url = '/api/user/sendCode?phoneNumber='+this.$refs.phone.value
+      this.axios.get(this.url)
+        .then(function (msg) {
+          console.log(msg)
+        });
       this.isshow = true
       this.reveal1 = !this.reveal1
       this.reveal2 = !this.reveal2

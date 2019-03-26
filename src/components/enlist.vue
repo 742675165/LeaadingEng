@@ -80,8 +80,6 @@ export default {
         this.$message.error('请输入正确的手机号')
         return
       }
-      // 调用后台接口
-
       this.isreveal1 = true
       this.show1 = !this.show1
       this.show2 = !this.show2
