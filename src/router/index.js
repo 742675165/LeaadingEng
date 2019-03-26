@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Logins from '@/components/login'
 import TextLogin from '@/components/textlogin'
-import Enlist from '@/components/enlist'
+import Register from '@/components/register'
 import HomePage from '@/components/homepage'
 
 Vue.use(Router)
@@ -25,9 +25,9 @@ export default new Router({
       component: TextLogin
     },
     {
-      path: '/enlists',
-      name: 'Enlist',
-      component: Enlist
+      path: '/registers',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/homepages',

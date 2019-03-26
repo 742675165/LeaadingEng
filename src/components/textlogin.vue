@@ -63,7 +63,7 @@ export default {
     },
     // 跳转至注册页面
     sign_in () {
-      this.$router.push({path: 'enlists'})
+      this.$router.push({path: 'registers'})
     },
 
     countDown () {
@@ -78,11 +78,11 @@ export default {
       // 调用后台接口
       // 调用后台接口
       console.log(this.$refs.phone.value)
-      this.url = '/api/user/sendCode?phoneNumber='+this.$refs.phone.value
+      this.url = '/api/user/sendCode?phoneNumber=' + this.$refs.phone.value
       this.axios.get(this.url)
         .then(function (msg) {
           console.log(msg)
-        });
+        })
       this.isshow = true
       this.reveal1 = !this.reveal1
       this.reveal2 = !this.reveal2

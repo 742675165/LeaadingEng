@@ -4,7 +4,7 @@
         <table class="tab_login">
           <tr style="height: 30px">
             <td style="border: none;border-bottom:1px solid cornflowerblue ">
-              <input type="text" class="login_user" placeholder="请输入用户名" v-model="formLogin.userName" />
+              <input type="text" class="login_user" placeholder="请输入用户名" />
             </td>
           </tr>
           <tr style="height: 30px">
@@ -14,7 +14,7 @@
           <tr style="height: 30px" v-show="hide_password">
             <td style="border: none;border-bottom:1px solid cornflowerblue ">
               <img src="static/visible.png" class="view" style="width: 19px;height: 19px" @click="change_hide"/>
-              <input type="text" class="login_password_text" placeholder="请输入密码" v-model="formLogin.userPassword"/>
+              <input type="text" class="login_password_text" placeholder="请输入密码" />
               <a class="lost_password" @click="lost_pass">忘记密码</a>
             </td>
           </tr>
@@ -65,7 +65,7 @@ export default {
       this.$router.push({path: 'textlogins'})
     },
     sign_in () {
-      this.$router.push({path: 'enlists'})
+      this.$router.push({path: 'registers'})
     },
     change_view () {
       this.view_password = !this.view_password
