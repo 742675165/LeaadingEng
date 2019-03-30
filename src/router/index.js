@@ -2,11 +2,10 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Logins from '@/components/login'
 import TextLogin from '@/components/textlogin'
 import Register from '@/components/register'
-import HomePage from '@/components/homepage'
+import Home from '@/components/home'
 
 Vue.use(Router)
 
@@ -30,9 +29,9 @@ export default new Router({
       component: Register
     },
     {
-      path: '/homepages',
-      name: 'HomePage',
-      component: HomePage
+      path: '/home',
+      name: 'home',
+      component: Home
     }
   ]
 })

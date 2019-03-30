@@ -25,7 +25,7 @@
         </tr>
         <tr style="height: 45px">
           <td>
-            <a-button type="primary" class="logins">登录</a-button>
+            <a-button type="primary" class="logins" @click="text_login_home">登录</a-button>
           </td>
         </tr>
         <tr style="height: 3px">
@@ -101,6 +101,14 @@ export default {
           this.canClick = true // 这里重新开启
         }
       }, 1000)
+    },
+    text_login_home () {
+      console.log(this.$refs.phone.value)
+      this.url = '/api/user/loginByNumber?phoneNumber=?' + this.$refs.phone.value
+      this.axios.get(this.url)
+        .then(function (msg) {
+          console.log(msg)
+        })
     }
   }
 }

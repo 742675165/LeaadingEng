@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     skip_home () {
-      this.$router.push({path: 'homepages'})
+      this.$router.push({path: 'home'})
     },
     text_login () {
       this.$router.push({path: 'textlogins'})
