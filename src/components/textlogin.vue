@@ -12,7 +12,7 @@
         </tr>
         <tr style="height: 30px">
           <td style="border: none;border-bottom:1px solid cornflowerblue ">
-            <input type="tel" class="security_code" placeholder="请输入验证码" oninput="if(value.length>6)value=value.slice(0,6)" />
+            <input type="tel" class="security_code" ref="code" placeholder="请输入验证码" oninput="if(value.length>6)value=value.slice(0,6)" />
             <a-button type="primary" class="get_code" @click="countDown" v-show="reveal1">获取验证码</a-button>
             <span v-show="reveal2" style="float: right">{{content}}</span>
           </td>
@@ -104,11 +104,20 @@ export default {
     },
     text_login_home () {
       console.log(this.$refs.phone.value)
-      this.url = '/api/user/loginByNumber?phoneNumber=?' + this.$refs.phone.value
-      this.axios.get(this.url)
-        .then(function (msg) {
-          console.log(msg)
-        })
+      let _this = this
+      let phoneNumber = this.$refs.phone.value
+      let code = this.$refs.code.value
+      _this.axios.get('/api/user/loginByNumber', {
+        params: {phoneNumber, code}
+      }).then(function (msg) {
+        let returnCode = msg.data.returnCode
+        if (returnCode !=0){
+          console.log(msg.data.returnMsg)
+          _this.$message.error(msg.data.returnMsg)
+          return
+        }
+        _this.$router.push({path: 'home', query: {userId: msg.data.data.userId}})
+      })
     }
   }
 }

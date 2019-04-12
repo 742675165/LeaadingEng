@@ -6,6 +6,8 @@ import Logins from '@/components/login'
 import TextLogin from '@/components/textlogin'
 import Register from '@/components/register'
 import Home from '@/components/home'
+import Service from '@/components/service'
+import Business from '@/components/business'
 
 Vue.use(Router)
 
@@ -32,6 +34,16 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/service',
+      name: 'Service',
+      component: Service
+    },
+    {
+      path: '/business',
+      name: 'Business',
+      component: Business
     }
   ]
 })

@@ -185,12 +185,19 @@ export default {
       isLoadedAll: false,
 
       minHeight: 700,
-      dataArray: []
+      dataArray: [],
+
+      websocket: null
     }
   },
 
   created () {
+    this.getParams()
+    this.initWebSocket()
     this.initData()
+  },
+  destroyed () {
+    this.websocketclose()
   },
   mounted () {
     // document.getElementsByTagName('body')[0].scrollTop=0;
@@ -199,9 +206,20 @@ export default {
   },
 
   methods: {
+    initWebSocket () {
+      const wsurl = 'ws://192.168.1.4:8081/websocket/' + this.userId
+      this.websocket = new WebSocket(wsurl)
+      this.websocket.onopen = this.websocketonopen
+
+      this.websocket.onerror = this.websocketonerror
+
+      this.websocket.onmessage = this.websocketonmessage
+
+      this.websocket.onclose = this.websocketclose
+    },
     initData () {
       this.dataArray = this.dataArray.concat(this.data)
-      if (this.dataArray.length==0) {
+      if (this.dataArray.length === 0) {
         this.addData = {
           direction: 2,
           id: 1,
@@ -213,10 +231,15 @@ export default {
       }
       console.log(this.dataArray)
     },
+    getParams () {
+      this.userId = this.$route.query.userId
+    },
     sendMessage () {
       // 获取输入数据
       this.sendMsg = this.$refs.sendMsg.stateValue
-      //页面显示
+      var message = this.sendMsg
+
+      // 页面显示
       this.sendMsgData = {
         direction: 2,
         id: 1,
@@ -226,9 +249,16 @@ export default {
       }
       this.dataArray.push(this.sendMsgData)
       this.$refs.sendMsg.stateValue = ''
-      //数据存储
+      this.axios.get('/api/chectcenter/socket/push/' + this.userId, {
+        params: { message }
+      }).then(function (response) {
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+      })
+      // 数据存储
 
-      //本地缓存
+      // 本地缓存
     },
     // 向上拉刷新
     refresh (done) {
@@ -257,6 +287,31 @@ export default {
         console.error('wxChat: props "getUpperData" must return a promise object!')
       }
       me.isUpperLaoding = false
+    },
+    websocketonopen () {
+      console.log('WebSocket连接成功')
+    },
+    websocketonerror (e) {
+      console.log('WebSocket连接发生错误')
+    },
+    websocketonmessage (e) { // 数据接收
+      setMessageinnerHTML('')
+      console.log(e)
+      // const redata = JSON.parse(e.data)
+      this.sendMsg = e.data
+      // console.log(redata.value)
+      // 页面显示
+      this.sendMsgData = {
+        direction: 1,
+        id: 1,
+        type: 1,
+        content: this.sendMsg,
+        ctime: new Date().toLocaleString()
+      }
+      this.dataArray.push(this.sendMsgData)
+    },
+    websocketclose (e) {
+      console.log('connection on closed(' + e.code + ')')
     }
 
     // // 向下拉加载
@@ -298,8 +353,8 @@ export default {
   #contents_footer {
     position: absolute;
     bottom: 0;
-    background: #7dbcea;
-    color: #fff;
+    background: #fff;
+    /*color: #fff;*/
     width: 100%;
     display: flex;
     justify-content: center;
